@@ -38,7 +38,7 @@ def search_for_album(album, target_artist, target_album, sp):
                         limit=50)
     artists = artists['artists']['items']
     artist = get_correct_artist_from_results(artists, target_artist)
-    album = get_correct_album_from_results(artist, target_album)
+    album = get_correct_album_from_results(artist, target_album, sp)
     return album
 
 
@@ -50,7 +50,7 @@ def create_rsgaoat_playlist(albums, start, end, sp, user):
         target_artist = album['artist']
         target_album = album['album']
         print(target_artist, target_album, album['position'])
-        result = search_for_album(album, target_artist, target_album)
+        result = search_for_album(album, target_artist, target_album, sp)
         try:
             tracks = [track['id'] for track in sp.album_tracks(result['id'])['items']]
         except spotipy.exceptions.SpotifyException:
